@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>5A66358B-3EB1-4AAB-BB24-D90970D9B316</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MMDump</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>274657135257684A23C867B3894449CF4E77FD24</key>
+		<string>https://github.com/ilufang/MMDump.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MMDump.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>274657135257684A23C867B3894449CF4E77FD24</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/ilufang/MMDump.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>274657135257684A23C867B3894449CF4E77FD24</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>274657135257684A23C867B3894449CF4E77FD24</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MMDump</string>
+		</dict>
+	</array>
+</dict>
+</plist>
