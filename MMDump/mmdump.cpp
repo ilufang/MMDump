@@ -21,7 +21,7 @@ using namespace std;
 void pcapListen(string ip);
 
 void parseData(string str);
-void parseJson(string str);
+bool parseJson(string str);
 bool dataComplete(string str);
 bool isJson(string str);
 
@@ -96,7 +96,6 @@ bool incomplete = false;
 
 void parseData(string str)
 {
-	cout<<"Parsing data:"<<str<<endl;
 	if (incomplete)
 	{
 		data += str;
@@ -118,11 +117,10 @@ void parseData(string str)
 	}
 }
 
-void parseJson(string str)
+bool parseJson(string str)
 {
 	// Parse a complete json for answer
 	// Print if found
-	cout<<"Parsing json:"<<str<<endl;
 	long pos = 0;
 	string ans = "Ans:";
 	while (true)
@@ -136,7 +134,9 @@ void parseJson(string str)
 	if (ans.length() > 4)
 	{
 		cout << ans << endl;
+		return true;
 	}
+	return false;
 }
 
 bool dataComplete(string str)
@@ -160,10 +160,8 @@ bool dataComplete(string str)
 	if (lbrace == rbrace)
 	{
 		incomplete = false;
-		cout<<"complete!"<<endl;
 		return true;
 	}
-	cout<<"Imcomplete~"<<endl;
 	incomplete = true;
 	return false;
 }
@@ -227,7 +225,17 @@ void pcapListen(string ip)
 				data+=packet[i];
 			}
 			if (isJson(data)) {
-				parseData(data);
+				//parseData(data);
+				// TODO: implement accurate data fixing
+				if(parseJson(data))
+				{
+					cout<<data<<endl;
+					pcap_stat ps;
+					pcap_stats(pcap, &ps);
+					cout<<"recv:"<<ps.ps_recv<<endl
+					<<"drop:"<<ps.ps_drop<<endl
+					<<"ifdp:"<<ps.ps_ifdrop<<endl;
+				}
 			}
 		}
 	}
