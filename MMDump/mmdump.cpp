@@ -6,22 +6,20 @@
 // Copyright (c) 2014 ilufang. All rights reserved.
 // 
 
-#include <cstdlib>
 #include <csignal>
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <pcap/pcap.h>
 
-#define DATA_OFFSET 66
-
 using namespace std;
 
-// Forward Declaration
-void pcapListen();
+#define DATA_OFFSET 66
+#define BUFFER_SIZE	4096
 
+// Forward Declarations
+void pcapListen();
 void parseData(string str);
-bool parseJson(string str);
+void parseJson(string str);
 bool dataComplete(string str);
 bool isJson(string str);
 
@@ -29,8 +27,9 @@ bool isJson(string str);
 
 void terminate(int n)
 {
+	// Display a message to be shown as toast to indicate termination success
 	cout<<"Process Terminated."<<endl;
-	exit(EXIT_SUCCESS);
+	exit(0);
 }
 
 int main(int argc, const char *argv[])
@@ -40,7 +39,7 @@ int main(int argc, const char *argv[])
 		if (strcmp(argv[1], "-ver") == 0)
 		{
 			cout << "1.0.0-beta" << endl;
-			return EXIT_SUCCESS;
+			return 0;
 		}
 		if (strcmp(argv[1], "-listen") == 0)
 		{
@@ -51,10 +50,10 @@ int main(int argc, const char *argv[])
 			signal(SIGTERM, terminate); // # busybox killall
 			signal(SIGSTOP, terminate); // Ctrl-Z or debugger
 			pcapListen();
-			return EXIT_SUCCESS;
+			return 0;
 		}
 	}
-	return EXIT_FAILURE;
+	return 1;
 }
 
 string data;
@@ -87,23 +86,10 @@ void parseData(string str)
 	}
 }
 
-bool parseJson(string str)
+void parseJson(string str)
 {
 	// Parse a complete json for answer
 	// Print if found
-	
-	/*
-	// logging
-	for (int i = 0; i < str.length(); i++) {
-		if (isprint(str[i])) {
-			cout<<str[i];
-		} else
-		{
-			cout<<'.';
-		}
-	}
-	cout<<endl;
-	*/
 	
 	long pos = 0;
 	string ans = "Ans:";
@@ -118,9 +104,7 @@ bool parseJson(string str)
 	if (ans.length() > 4)
 	{
 		cout << ans << endl;
-		return true;
 	}
-	return false;
 }
 
 bool dataComplete(string str)
@@ -152,6 +136,8 @@ bool dataComplete(string str)
 
 bool isJson(string str)
 {
+	// Decides whether the data is json AND is for mmd
+	
 	// Phase 1: judge whether this data is json
 	// These conditions are fatal that it must be extrememly careful
 	if (str.find(",")==string::npos)
@@ -191,6 +177,8 @@ bool isJson(string str)
 
 void pcapListen()
 {
+	// Main Packet Capturing & Processing function
+	
 	pcap_t *pcap;
 	char* dev;
 	char errbuf[PCAP_ERRBUF_SIZE];
@@ -204,7 +192,7 @@ void pcapListen()
 	}
 	// Begin init pcap handler
 	pcap = pcap_open_live(dev,
-						  2048, // buffer size, enough for MMD
+						  BUFFER_SIZE, // buffer size, 4096 enough for MMD
 						  1, // promisc mode
 						  -1, // don't time out
 						  errbuf);
@@ -221,7 +209,7 @@ void pcapListen()
 	
 	cout << "TCP Listening Started on " << dev << endl;
 	
-	// Constantly constantly sniff for packet
+	// Constantly constantly sniff for packets
 	while (true) {
 		const u_char* packet;
 		int err = pcap_next_ex(pcap, &header, &packet);
@@ -233,13 +221,7 @@ void pcapListen()
 				data+=packet[i];
 			}
 			if (isJson(data)) {
-				//parseData(data);
-				// TODO: implement accurate data fixing
 				parseData(data);
-				if (header->len!=header->caplen) {
-					cout<<"Length Inconsistency!len:"<<header->len<<"caplen:"<<header->caplen<<endl;
-				}
-
 			}
 		}
 	}
