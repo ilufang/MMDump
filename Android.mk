@@ -9,10 +9,11 @@ include $(PREBUILT_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := mmdump
-
+	
 LOCAL_SRC_FILES:=\
 	main.cpp\
 	json.cpp\
+	lodepng.cpp\
 	mmdump.cpp\
 	mmoperate.cpp
 LOCAL_STATIC_LIBRARIES := libpcap

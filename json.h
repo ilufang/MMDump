@@ -10,7 +10,6 @@ public:
 	json();
 	bool isJson();
 	bool isHead();
-	string data;
 };
 
 #endif

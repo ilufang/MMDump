@@ -2,6 +2,11 @@
 
 #include <csignal>
 
+void debug()
+{
+	// For experiments only
+}
+
 void version()
 {
 	cout<<"1.2.0-alpha"<<endl;
@@ -11,12 +16,12 @@ void help()
 {
 	cout<<"MMDump - A MeMeDa Answering Engine"<<endl
 		<<"(c) 2014-2015 ilufang"<<endl<<endl
-		<<"Usage: mmdump -<auto|h|listen|ver> [config]"<<endl
+		<<"Usage: mmdump -<auto|h|listen|ver> [accuracy]"<<endl
 		<<"-auto:\tOperate MeMeDa automatically"<<endl
 		<<"-h:\tHelp (This message)"<<endl
 		<<"-listen:\tCapture Answer and send to stdout"<<endl
 		<<"-ver:\tGet binary version"<<endl
-		<<"config:\tFile containing configs"<<endl;
+		<<"accuracy:\tSucess rate, for automation only."<<endl;
 }
 
 void listen()
@@ -24,15 +29,11 @@ void listen()
 	MMDump().listen();
 }
 
-void operate(char* confile)
+void operate(int accuracy)
 {
-	MMOperate(confile).start();
+	MMOperate(accuracy).start();
 }
 
-void operate()
-{
-	MMOperate().start();
-}
 
 void terminate(int n)
 {
@@ -49,37 +50,37 @@ int main(int argc, char* argv[])
 	signal(SIGTERM, terminate); // # busybox killall
 	signal(SIGSTOP, terminate); // Ctrl-Z or debugger
 
-	if (argv>1)
+	if (argc>1)
 	{
-		if (strcmp(argv[i],"-ver")==0)
+		if (strcmp(argv[1],"-ver")==0)
 		{
 			version();
 			return 0;
 		}
-		if (strcmp(argv[i],"-list")==0)
-		{
-			listDev();
-			return 0;
-		}
-		if (strcmp(argv[i],"-h")==0)
+		if (strcmp(argv[1],"-h")==0)
 		{
 			help();
 			return 0;
 		}
-		if (strcmp(argv[i],"-listen")==0)
+		if (strcmp(argv[1],"-listen")==0)
 		{
 			listen();
 			return 0;
 		}
-		if (strcmp(argv[i],"-auto")==0)
+		if (strcmp(argv[1],"-auto")==0)
 		{
 			if (argc>2)
 			{
-				operate(argv[i+1]);
+				operate(atoi(argv[2]));
 			} else
 			{
-				operate();
+				operate(100);
 			}
+			return 0;
+		}
+		if (strcmp(argv[1],"-debug")==0)
+		{
+			debug();
 			return 0;
 		}
 	}
