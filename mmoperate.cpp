@@ -56,6 +56,7 @@ void MMOperate::gotAnswer(string ans, vector<bool> is_image)
 	if (count > accuracy)
 	{
 		// Fake answers
+		ans.erase();
 		for (int i = 0; i < 7; ++i)
 		{
 			ans.push_back('1'+rand()%4);
