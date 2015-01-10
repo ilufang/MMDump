@@ -24,6 +24,8 @@ Run `ndk-build`
 ###Usage
 **这是关于此程序的Android应用的用法,关于mmdump命令的用法,请使用`-h`**
 
+**[下载](http://pan.baidu.com/s/1bnxXUzX)**
+
 * `监听`: 自动分析数据包寻找答案,收到答案后通过Toast消息显示出来,如:`Ans:1342231`,请只点一次
 * `自动执行`: 抓取数据包后,根据答案模拟输入自动刷分,请只点一次  
 开始后,请进入么么答**天梯**,配对后手动选择话题,看到`Started on:...`后即为自动  
@@ -41,4 +43,4 @@ Run `ndk-build`
 * 自动运行正常的通知有:`TCP Listening started on xxx`(初始化), `Started on: xxx`(开始游戏), `Outputting Random Answers`(进入混淆模式), `Starting new session`(新建游戏), `call ended`(线程结束,选择话题后出现)
 * 其他任何消息均为错误信息,如`Packet Matching Failure`,遇到此情况请结束重开 (当前版本实现不稳定,还未达可以完全不管不出错的地步,所以还是要看着)
 
-任何形式的反馈请贴在这个Github仓库的Issue中,我回尽快处理/回复,谢谢!
+任何形式的反馈请贴在这个Github仓库的[Issue](/issues)中,我回尽快处理/回复,谢谢!
