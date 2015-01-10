@@ -43,4 +43,4 @@ Run `ndk-build`
 * 自动运行正常的通知有:`TCP Listening started on xxx`(初始化), `Started on: xxx`(开始游戏), `Outputting Random Answers`(进入混淆模式), `Starting new session`(新建游戏), `call ended`(线程结束,选择话题后出现)
 * 其他任何消息均为错误信息,如`Packet Matching Failure`,遇到此情况请结束重开 (当前版本实现不稳定,还未达可以完全不管不出错的地步,所以还是要看着)
 
-任何形式的反馈请贴在这个Github仓库的[Issue](/issues)中,我回尽快处理/回复,谢谢!
+任何形式的反馈请贴在这个Github仓库的[Issue](http://github.com/ilufang/MMDump/issues)中,我回尽快处理/回复,谢谢!
